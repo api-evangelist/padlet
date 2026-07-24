@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Padlet AI Recipe Boards Comments API
+  version: '1.0'
+  description: Padlet's public REST API (JSON:API) to read boards and their posts, sections, and comments, create posts, comments, and reactions, generate AI recipe boards, and read user and organization data. Authenticated with an x-api-key header tied to a paying Padlet user with admin access to the board.
+  contact:
+    name: Padlet Engineer
+    email: engine@wallwisher.com
+    url: https://legal.padlet.com
+servers:
+- url: https://api.padlet.dev/v1
+tags:
+- name: Comments
+paths:
+  /posts/{post_hashid}/comments:
+    post:
+      summary: Create comment on post
+      responses:
+        '201':
+          $ref: '#/components/responses/newComment'
+        '400':
+          $ref: '#/components/responses/400-bad-request'
+        '422':
+          $ref: '#/components/responses/422-unprocessable'
+      operationId: create-comment
+      x-internal: false
+      tags:
+      - Comments
+      security:
+      - apiKey: []
+      description: Create a comment on a post
+      requestBody:
+        $ref: '#/components/requestBodies/addComment'
+components:
+  securitySchemes:
+    apiKey:
+      name: X-Api-Key
+      type: apiKey
+      in: header
+      description: ''

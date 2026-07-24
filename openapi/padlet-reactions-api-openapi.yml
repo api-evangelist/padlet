@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  title: Padlet AI Recipe Boards Reactions API
+  version: '1.0'
+  description: Padlet's public REST API (JSON:API) to read boards and their posts, sections, and comments, create posts, comments, and reactions, generate AI recipe boards, and read user and organization data. Authenticated with an x-api-key header tied to a paying Padlet user with admin access to the board.
+  contact:
+    name: Padlet Engineer
+    email: engine@wallwisher.com
+    url: https://legal.padlet.com
+servers:
+- url: https://api.padlet.dev/v1
+tags:
+- name: Reactions
+paths:
+  /posts/{post_id}/reactions:
+    post:
+      summary: Create a reaction
+      operationId: create-reaction
+      responses:
+        '201':
+          $ref: '#/components/responses/newReaction'
+        '400':
+          $ref: '#/components/responses/400-bad-request'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+        '422':
+          $ref: '#/components/responses/422-unprocessable'
+      requestBody:
+        $ref: '#/components/requestBodies/createReaction'
+      description: Create a reaction on a post
+      tags:
+      - Reactions
+      security:
+      - apiKey: []
+components:
+  securitySchemes:
+    apiKey:
+      name: X-Api-Key
+      type: apiKey
+      in: header
+      description: ''

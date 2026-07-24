@@ -1,0 +1,35 @@
+openapi: 3.0.3
+info:
+  title: Padlet AI Recipe Boards Users API
+  version: '1.0'
+  description: Padlet's public REST API (JSON:API) to read boards and their posts, sections, and comments, create posts, comments, and reactions, generate AI recipe boards, and read user and organization data. Authenticated with an x-api-key header tied to a paying Padlet user with admin access to the board.
+  contact:
+    name: Padlet Engineer
+    email: engine@wallwisher.com
+    url: https://legal.padlet.com
+servers:
+- url: https://api.padlet.dev/v1
+tags:
+- name: Users
+paths:
+  /me:
+    get:
+      summary: Get current user
+      responses:
+        '200':
+          $ref: '#/components/responses/currentUser'
+      description: Get information about the currently authenticated user.
+      operationId: get-current-user
+      tags:
+      - Users
+      security:
+      - apiKey: []
+      parameters:
+      - $ref: '#/components/parameters/include_boards_organizations'
+components:
+  securitySchemes:
+    apiKey:
+      name: X-Api-Key
+      type: apiKey
+      in: header
+      description: ''

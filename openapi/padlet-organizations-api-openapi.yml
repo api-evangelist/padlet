@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: Padlet AI Recipe Boards Organizations API
+  version: '1.0'
+  description: Padlet's public REST API (JSON:API) to read boards and their posts, sections, and comments, create posts, comments, and reactions, generate AI recipe boards, and read user and organization data. Authenticated with an x-api-key header tied to a paying Padlet user with admin access to the board.
+  contact:
+    name: Padlet Engineer
+    email: engine@wallwisher.com
+    url: https://legal.padlet.com
+servers:
+- url: https://api.padlet.dev/v1
+tags:
+- name: Organizations
+paths:
+  /organizations/{org_id}:
+    get:
+      summary: Get organization by id
+      responses:
+        '200':
+          $ref: '#/components/responses/organizationById'
+        '403':
+          $ref: '#/components/responses/403-forbidden'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+      description: Get organization information. Requires admin access.
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: users
+          default: users
+        description: Set to 'users' to include organization members in response
+      operationId: get-organization-by-id
+      tags:
+      - Organizations
+      security:
+      - apiKey: []
+  /organizations/{org_id}/users/{user_id}:
+    get:
+      summary: Get user's boards in organization
+      responses:
+        '200':
+          $ref: '#/components/responses/userBoardsInOrg'
+        '403':
+          $ref: '#/components/responses/403-forbidden'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+      description: Get a user's boards within an organization. Requires admin access.
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: boards
+          default: boards
+        description: Set to 'boards' to include user's boards in response
+      operationId: get-user-info-in-org
+      tags:
+      - Organizations
+      security:
+      - apiKey: []
+components:
+  securitySchemes:
+    apiKey:
+      name: X-Api-Key
+      type: apiKey
+      in: header
+      description: ''

@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: Padlet AI Recipe Boards API
+  version: '1.0'
+  description: Padlet's public REST API (JSON:API) to read boards and their posts, sections, and comments, create posts, comments, and reactions, generate AI recipe boards, and read user and organization data. Authenticated with an x-api-key header tied to a paying Padlet user with admin access to the board.
+  contact:
+    name: Padlet Engineer
+    email: engine@wallwisher.com
+    url: https://legal.padlet.com
+servers:
+- url: https://api.padlet.dev/v1
+tags:
+- name: AI Recipe Boards
+paths:
+  /ai-recipe-boards:
+    post:
+      tags:
+      - AI Recipe Boards
+      summary: Create an AI recipe board
+      description: Creates a new AI-generated board using natural language instructions
+      operationId: create-ai-recipe-board
+      requestBody:
+        $ref: '#/components/requestBodies/createAiRecipeBoard'
+      responses:
+        '202':
+          $ref: '#/components/responses/aiRecipeBoardCreation'
+        '400':
+          $ref: '#/components/responses/400-bad-request'
+        '401':
+          $ref: '#/components/responses/401-unauthorized'
+        '403':
+          $ref: '#/components/responses/403-forbidden'
+      security:
+      - apiKey: []
+  /ai-recipe-boards/status/{status_key}:
+    get:
+      tags:
+      - AI Recipe Boards
+      summary: Get AI recipe board status
+      description: Gets the current status of an AI recipe board creation request
+      operationId: get-ai-recipe-board-status
+      responses:
+        '200':
+          $ref: '#/components/responses/aiRecipeBoardStatus'
+        '401':
+          $ref: '#/components/responses/401-unauthorized'
+        '404':
+          $ref: '#/components/responses/aiRecipeBoardStatusNotFound'
+      security:
+      - apiKey: []
+components:
+  securitySchemes:
+    apiKey:
+      name: X-Api-Key
+      type: apiKey
+      in: header
+      description: ''

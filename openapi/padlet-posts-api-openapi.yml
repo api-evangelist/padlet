@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: Padlet AI Recipe Boards Posts API
+  version: '1.0'
+  description: Padlet's public REST API (JSON:API) to read boards and their posts, sections, and comments, create posts, comments, and reactions, generate AI recipe boards, and read user and organization data. Authenticated with an x-api-key header tied to a paying Padlet user with admin access to the board.
+  contact:
+    name: Padlet Engineer
+    email: engine@wallwisher.com
+    url: https://legal.padlet.com
+servers:
+- url: https://api.padlet.dev/v1
+tags:
+- name: Posts
+paths:
+  /boards/{board_id}/posts:
+    post:
+      summary: Add post
+      operationId: add-post
+      responses:
+        '201':
+          $ref: '#/components/responses/newPost'
+        '400':
+          $ref: '#/components/responses/400-bad-request'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+      requestBody:
+        $ref: '#/components/requestBodies/addPost'
+      description: Create a post in a board
+      tags:
+      - Posts
+      security:
+      - apiKey: []
+  /posts/{post_id}/attachmentData:
+    get:
+      summary: Your GET endpoint
+      tags:
+      - Posts
+      responses:
+        '200':
+          $ref: '#/components/responses/attachmentData'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+      operationId: get-post-attachment-data
+      description: Get post attachment information by post ID.
+      security:
+      - apiKey: []
+components:
+  securitySchemes:
+    apiKey:
+      name: X-Api-Key
+      type: apiKey
+      in: header
+      description: ''
