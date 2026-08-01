@@ -1,0 +1,15 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/padlet-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: X-Api-Key
+  sources:
+  - openapi/padlet-openapi.yml

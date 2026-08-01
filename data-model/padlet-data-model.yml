@@ -1,0 +1,73 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/padlet-openapi.yml + https://docs.padlet.dev/reference/ object docs
+entities:
+- name: board
+  id_prefix: (16-char hashid)
+  relationships:
+  - type: has_many
+    target: post
+    via: include=posts
+  - type: has_many
+    target: section
+    via: include=sections
+  - type: has_many
+    target: comment
+    via: include=comments
+- name: section
+  id_prefix: sec_
+  relationships:
+  - type: belongs_to
+    target: board
+    via: relationships.board
+- name: post
+  id_prefix: post_
+  relationships:
+  - type: belongs_to
+    target: board
+    via: relationships.board
+  - type: belongs_to
+    target: section
+    via: relationships.section
+  - type: has_one
+    target: attachmentData
+    via: relationships.attachmentData
+  - type: has_many
+    target: comment
+    via: post comments
+  - type: has_many
+    target: reaction
+    via: post reactions
+- name: comment
+  id_prefix: comment_
+  relationships:
+  - type: belongs_to
+    target: post
+    via: relationships.post
+  - type: belongs_to
+    target: user
+    via: relationships.author
+- name: reaction
+  id_prefix: (numeric)
+  relationships:
+  - type: belongs_to
+    target: post
+    via: relationships.post
+  - type: belongs_to
+    target: board
+    via: relationships.board
+- name: user
+  id_prefix: user_
+  relationships:
+  - type: has_many
+    target: board
+    via: include=boards
+  - type: has_many
+    target: organization
+    via: include=organizations
+- name: organization
+  id_prefix: org_ | wksp_
+  relationships:
+  - type: has_many
+    target: user
+    via: include=users

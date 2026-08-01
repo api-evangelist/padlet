@@ -1,0 +1,27 @@
+# Padlet API Documentation
+
+> Use Padlet's API to add posts or retrieve posts' data from any of your padlets.
+
+## API Reference
+- [Introduction](https://docs.padlet.dev/reference/introduction.md)
+- [Authentication](https://docs.padlet.dev/reference/authentication.md)
+- [Error handling & rate limiting](https://docs.padlet.dev/reference/error-handling.md)
+- [Board](https://docs.padlet.dev/reference/board-object.md)
+- [AI Recipe Board Status](https://docs.padlet.dev/reference/ai-recipe-board-creation-status-object.md)
+- [AI Recipe Board Creation Status Url](https://docs.padlet.dev/reference/ai-recipe-board-creation-status-url-object.md)
+- [Section](https://docs.padlet.dev/reference/section-object.md)
+- [Post](https://docs.padlet.dev/reference/post-object.md)
+- [Comment](https://docs.padlet.dev/reference/comment-object.md)
+- [User](https://docs.padlet.dev/reference/user-object.md)
+- [Reaction](https://docs.padlet.dev/reference/reaction-object.md)
+- [Organization](https://docs.padlet.dev/reference/organization-object.md)
+- [Get board by id](https://docs.padlet.dev/reference/get-board-by-id.md)
+- [Create a comment](https://docs.padlet.dev/reference/create-comment.md)
+- [Get organization by id](https://docs.padlet.dev/reference/get-organization-by-id.md)
+- [Get user's information in organization](https://docs.padlet.dev/reference/get-user-info-in-org.md)
+- [Create an AI recipe board](https://docs.padlet.dev/reference/create-ai-recipe-board.md)
+- [Get AI recipe board status](https://docs.padlet.dev/reference/get-ai-recipe-board-status.md)
+- [Create a post](https://docs.padlet.dev/reference/add-post.md)
+- [Get post attachment data](https://docs.padlet.dev/reference/get-post-attachment-data.md)
+- [Get current user's information](https://docs.padlet.dev/reference/get-current-user.md)
+- [Create a reaction](https://docs.padlet.dev/reference/create-reaction.md)

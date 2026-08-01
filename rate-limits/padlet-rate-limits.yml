@@ -1,0 +1,10 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.padlet.dev/reference/error-handling
+limits:
+- scope: ip
+  limit_count: 250
+  window: 1m
+  on_exceed:
+    status: 429
+    code: RATE_LIMIT_EXCEEDED

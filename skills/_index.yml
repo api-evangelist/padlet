@@ -1,0 +1,22 @@
+generated: '2026-07-20'
+method: generated
+skills:
+- file: padlet-read-board.md
+  name: Read a Padlet board and its posts
+  api: openapi/padlet-openapi.yml
+  operations:
+  - get-board-by-id
+  - get-post-attachment-data
+- file: padlet-add-post-and-engage.md
+  name: Add a post to a board and engage with it
+  api: openapi/padlet-openapi.yml
+  operations:
+  - add-post
+  - create-comment
+  - create-reaction
+- file: padlet-generate-ai-recipe-board.md
+  name: Generate an AI recipe board and poll its status
+  api: openapi/padlet-openapi.yml
+  operations:
+  - create-ai-recipe-board
+  - get-ai-recipe-board-status

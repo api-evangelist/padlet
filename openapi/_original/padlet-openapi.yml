@@ -1,0 +1,1163 @@
+# generated: '2026-07-20'
+# method: searched
+# source: https://docs.padlet.dev/reference/ (embedded OpenAPI 3.0.3 definitions per operation)
+openapi: 3.0.3
+info:
+  title: Padlet API
+  version: '1.0'
+  description: Padlet's public REST API (JSON:API) to read boards and their posts, sections, and comments,
+    create posts, comments, and reactions, generate AI recipe boards, and read user and organization data.
+    Authenticated with an x-api-key header tied to a paying Padlet user with admin access to the board.
+  contact:
+    name: Padlet Engineer
+    email: engine@wallwisher.com
+    url: https://legal.padlet.com
+servers:
+- url: https://api.padlet.dev/v1
+paths:
+  /boards/{board_id}:
+    get:
+      summary: Get board by id
+      responses:
+        '200':
+          $ref: '#/components/responses/boardById'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+      x-internal: false
+      description: Get board information by ID.
+      parameters:
+      - $ref: '#/components/parameters/include_posts_sections'
+      operationId: get-board-by-id
+      tags:
+      - Boards
+      security:
+      - apiKey: []
+      requestBody:
+        content: {}
+  /boards/{board_id}/posts:
+    post:
+      summary: Add post
+      operationId: add-post
+      responses:
+        '201':
+          $ref: '#/components/responses/newPost'
+        '400':
+          $ref: '#/components/responses/400-bad-request'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+      requestBody:
+        $ref: '#/components/requestBodies/addPost'
+      description: Create a post in a board
+      tags:
+      - Posts
+      security:
+      - apiKey: []
+  /posts/{post_hashid}/comments:
+    post:
+      summary: Create comment on post
+      responses:
+        '201':
+          $ref: '#/components/responses/newComment'
+        '400':
+          $ref: '#/components/responses/400-bad-request'
+        '422':
+          $ref: '#/components/responses/422-unprocessable'
+      operationId: create-comment
+      x-internal: false
+      tags:
+      - Comments
+      security:
+      - apiKey: []
+      description: Create a comment on a post
+      requestBody:
+        $ref: '#/components/requestBodies/addComment'
+  /posts/{post_id}/reactions:
+    post:
+      summary: Create a reaction
+      operationId: create-reaction
+      responses:
+        '201':
+          $ref: '#/components/responses/newReaction'
+        '400':
+          $ref: '#/components/responses/400-bad-request'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+        '422':
+          $ref: '#/components/responses/422-unprocessable'
+      requestBody:
+        $ref: '#/components/requestBodies/createReaction'
+      description: Create a reaction on a post
+      tags:
+      - Reactions
+      security:
+      - apiKey: []
+  /me:
+    get:
+      summary: Get current user
+      responses:
+        '200':
+          $ref: '#/components/responses/currentUser'
+      description: Get information about the currently authenticated user.
+      operationId: get-current-user
+      tags:
+      - Users
+      security:
+      - apiKey: []
+      parameters:
+      - $ref: '#/components/parameters/include_boards_organizations'
+  /organizations/{org_id}:
+    get:
+      summary: Get organization by id
+      responses:
+        '200':
+          $ref: '#/components/responses/organizationById'
+        '403':
+          $ref: '#/components/responses/403-forbidden'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+      description: Get organization information. Requires admin access.
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: users
+          default: users
+        description: Set to 'users' to include organization members in response
+      operationId: get-organization-by-id
+      tags:
+      - Organizations
+      security:
+      - apiKey: []
+  /organizations/{org_id}/users/{user_id}:
+    get:
+      summary: Get user's boards in organization
+      responses:
+        '200':
+          $ref: '#/components/responses/userBoardsInOrg'
+        '403':
+          $ref: '#/components/responses/403-forbidden'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+      description: Get a user's boards within an organization. Requires admin access.
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: boards
+          default: boards
+        description: Set to 'boards' to include user's boards in response
+      operationId: get-user-info-in-org
+      tags:
+      - Organizations
+      security:
+      - apiKey: []
+  /ai-recipe-boards:
+    post:
+      tags:
+      - AI Recipe Boards
+      summary: Create an AI recipe board
+      description: Creates a new AI-generated board using natural language instructions
+      operationId: create-ai-recipe-board
+      requestBody:
+        $ref: '#/components/requestBodies/createAiRecipeBoard'
+      responses:
+        '202':
+          $ref: '#/components/responses/aiRecipeBoardCreation'
+        '400':
+          $ref: '#/components/responses/400-bad-request'
+        '401':
+          $ref: '#/components/responses/401-unauthorized'
+        '403':
+          $ref: '#/components/responses/403-forbidden'
+      security:
+      - apiKey: []
+  /ai-recipe-boards/status/{status_key}:
+    get:
+      tags:
+      - AI Recipe Boards
+      summary: Get AI recipe board status
+      description: Gets the current status of an AI recipe board creation request
+      operationId: get-ai-recipe-board-status
+      responses:
+        '200':
+          $ref: '#/components/responses/aiRecipeBoardStatus'
+        '401':
+          $ref: '#/components/responses/401-unauthorized'
+        '404':
+          $ref: '#/components/responses/aiRecipeBoardStatusNotFound'
+      security:
+      - apiKey: []
+  /posts/{post_id}/attachmentData:
+    get:
+      summary: Your GET endpoint
+      tags:
+      - Posts
+      responses:
+        '200':
+          $ref: '#/components/responses/attachmentData'
+        '404':
+          $ref: '#/components/responses/404-not-found'
+      operationId: get-post-attachment-data
+      description: Get post attachment information by post ID.
+      security:
+      - apiKey: []
+components:
+  schemas:
+    id:
+      title: Id
+      type: string
+      minLength: 16
+      x-internal: false
+      example: abcd1234efgh5678x
+      description: ID of the object
+      maxLength: 22
+    base_attributes_read:
+      title: Base Attributes
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      x-internal: false
+    board_read:
+      title: Board
+      type: object
+      x-internal: false
+      x-examples: {}
+      properties:
+        id:
+          type: string
+          description: ID of board.
+        type:
+          type: string
+          enum:
+          - board
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/board_attributes_read'
+          - $ref: '#/components/schemas/base_attributes_read'
+    board_attributes_read:
+      title: Board Attributes
+      type: object
+      x-internal: false
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        builder:
+          $ref: '#/components/schemas/user_attributes'
+        iconUrl:
+          type: string
+        domainName:
+          type: string
+          format: uri
+        settings:
+          $ref: '#/components/schemas/board_settings'
+        webUrl:
+          $ref: '#/components/schemas/board_weburl'
+        customFields:
+          type: object
+          description: Custom field definitions configured for this board. Contains field IDs as keys
+            and field configuration as values.
+          example: {}
+    board_settings:
+      title: Board Settings
+      type: object
+      properties:
+        font:
+          type: number
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          description: 'Font ID for a board:
+
+            - 1 serif font
+
+            - 2 sans serif font
+
+            - 3 cursive font
+
+            - 4 monospaced font'
+        colorScheme:
+          type: string
+          enum:
+          - dark
+          - light
+          default: light
+      x-internal: false
+    section_read:
+      title: Section
+      type: object
+      x-internal: false
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        type:
+          type: string
+          enum:
+          - section
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/section_attributes_read'
+          - $ref: '#/components/schemas/section_attributes_common'
+          - $ref: '#/components/schemas/base_attributes_read'
+        relationships:
+          allOf:
+          - $ref: '#/components/schemas/belongs_to_board'
+    section_attributes_common:
+      title: Section Attributes
+      type: object
+      properties:
+        title:
+          type: string
+      x-internal: false
+    section_attributes_read:
+      title: Section Attributes
+      type: object
+      x-internal: false
+      properties:
+        sortIndex:
+          $ref: '#/components/schemas/sort_index'
+      example:
+        sortIndex: 1234567890
+    user_attributes:
+      type: object
+      properties:
+        username:
+          type: string
+        shortName:
+          type: string
+        fullName:
+          type: string
+        avatarUrl:
+          type: string
+      x-internal: false
+      example:
+        username: j
+        shortName: Jerry
+        fullName: Jerry Seinfeld
+        avatarUrl: http://example.com
+      title: User Attributes
+    post_read:
+      type: object
+      x-examples:
+        Hello:
+          id: hello1234world
+          type: post
+          attributes:
+            subject: Hello World
+            body: Hello is a way of greeting
+      description: The contents of a padlet are written in posts
+      title: Post
+      x-internal: false
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        type:
+          type: string
+          enum:
+          - post
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/post_attributes_read'
+          - $ref: '#/components/schemas/post_attributes_common'
+          - $ref: '#/components/schemas/base_attributes_read'
+        relationships:
+          allOf:
+          - $ref: '#/components/schemas/belongs_to_board'
+          - $ref: '#/components/schemas/belongs_to_section'
+    comment_read:
+      title: Comment
+      type: object
+      x-internal: false
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        type:
+          type: string
+          enum:
+          - comment
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/comment_attributes_read'
+          - $ref: '#/components/schemas/base_attributes_read'
+        relationships:
+          allOf:
+          - $ref: '#/components/schemas/belongs_to_post'
+          - $ref: '#/components/schemas/belongs_to_author'
+    comment_attributes_read:
+      title: Comment Attributes
+      type: object
+      x-internal: false
+      properties:
+        content:
+          type: string
+          description: Plain-text fallback of the comment
+        htmlContent:
+          type: string
+          description: Sanitized HTML body of the comment
+        attachment:
+          type: object
+          nullable: true
+          properties:
+            url:
+              type: string
+              format: uri
+          description: Attachment properties object with a url field, or null if none
+        status:
+          type: string
+          enum:
+          - approved
+          - pending_moderation
+          description: Moderation status
+    belongs_to_post:
+      title: belongs to Post
+      type: object
+      properties:
+        post:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  $ref: '#/components/schemas/id'
+                type:
+                  type: string
+                  enum:
+                  - post
+              required:
+              - id
+              - type
+    belongs_to_author:
+      title: belongs to Author
+      type: object
+      properties:
+        author:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  $ref: '#/components/schemas/id'
+                type:
+                  type: string
+                  enum:
+                  - user
+              required:
+              - id
+              - type
+    post_attributes_common:
+      title: Post Attributes
+      type: object
+      x-internal: false
+      properties:
+        color:
+          $ref: '#/components/schemas/post_color'
+        status:
+          $ref: '#/components/schemas/post_status'
+        canvasProps:
+          $ref: '#/components/schemas/post_canvas_props'
+        mapProps:
+          $ref: '#/components/schemas/post_map_props'
+    post_attributes_read:
+      title: Post Attributes
+      type: object
+      x-internal: false
+      properties:
+        author:
+          $ref: '#/components/schemas/user_attributes'
+        sortIndex:
+          $ref: '#/components/schemas/sort_index'
+        content:
+          allOf:
+          - $ref: '#/components/schemas/post_content_read'
+          - $ref: '#/components/schemas/post_content_common'
+        webUrl:
+          $ref: '#/components/schemas/post_weburl'
+        customFields:
+          type: array
+          description: Array of custom field values for this post. Each object contains key (field name)
+            and value (field value).
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: The custom field name
+              value:
+                type: string
+                description: The custom field value
+          example:
+          - key: Priority
+            value: High
+    post_content_common:
+      type: object
+      example:
+        subject: Hello
+        body: Hello is a way of greeting
+        attachment:
+          url: http://example.com
+          caption: Example website
+          previewImageUrl: http://example.com
+          embedCode: <img src=\"http://example.com\" width=\"768\" height=\"561\" />
+          poll: null
+      x-internal: false
+      title: Post Content
+      properties:
+        subject:
+          type: string
+          maxLength: 500
+        body:
+          type: string
+          maxLength: 10000
+        attachment:
+          $ref: '#/components/schemas/post_attachment'
+    post_content_read:
+      type: object
+      x-examples: {}
+      x-internal: false
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      title: Post Content
+    post_canvas_props:
+      type: object
+      example:
+        left: 10
+        top: 20
+        width: 250
+      title: Post Properties In Canvas
+      properties:
+        left:
+          type: integer
+          format: int32
+        top:
+          type: integer
+          format: int32
+        width:
+          type: integer
+          format: int32
+    post_map_props:
+      title: Post Properties In Map
+      type: object
+      properties:
+        latitude:
+          type: number
+        longitude:
+          type: number
+        locationName:
+          type: string
+    post_color:
+      title: Post Color
+      type: string
+      nullable: true
+      enum:
+      - red
+      - orange
+      - green
+      - blue
+      - purple
+      example: red
+      x-internal: false
+    post_status:
+      title: Post Status
+      type: string
+      enum:
+      - approved
+      - pending_moderation
+      - scheduled
+      example: approved
+      x-internal: false
+      nullable: true
+      description: ''
+    post_attachment:
+      title: Post Attachment
+      type: object
+      x-internal: false
+      nullable: true
+      properties:
+        caption:
+          type: string
+          nullable: true
+        url:
+          type: string
+          format: uri
+          nullable: true
+        previewImageUrl:
+          type: string
+          example: http://example.com
+          nullable: true
+        embedCode:
+          type: string
+          example: <img src=\"http://example.com\" width=\"768\" height=\"561\" />
+          nullable: true
+        poll:
+          type: object
+          nullable: true
+          properties:
+            question:
+              type: string
+              nullable: true
+            choices:
+              type: array
+              items:
+                type: string
+    sort_index:
+      title: Sort Index
+      type: number
+      example: 113664000
+      x-internal: false
+      description: ''
+    has_many_sections:
+      title: has many Sections
+      type: object
+      properties:
+        sections:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - section
+                  id:
+                    $ref: '#/components/schemas/id'
+    has_many_posts:
+      title: has many Posts
+      type: object
+      properties:
+        posts:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - post
+                  id:
+                    $ref: '#/components/schemas/id'
+    has_many_comments:
+      title: has many Comments
+      type: object
+      properties:
+        comments:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - comment
+                  id:
+                    $ref: '#/components/schemas/id'
+    board_read_relationships:
+      title: Board Relationships
+      type: object
+      properties:
+        relationships:
+          title: has many sections, posts, and comments
+          allOf:
+          - $ref: '#/components/schemas/has_many_sections'
+          - $ref: '#/components/schemas/has_many_posts'
+          - $ref: '#/components/schemas/has_many_comments'
+    belongs_to_board:
+      title: belongs to Board
+      type: object
+      properties:
+        board:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  $ref: '#/components/schemas/id'
+                type:
+                  type: string
+                  enum:
+                  - board
+              required:
+              - id
+              - type
+    belongs_to_section:
+      title: belongs to Section
+      type: object
+      properties:
+        section:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  $ref: '#/components/schemas/id'
+                type:
+                  type: string
+                  enum:
+                  - section
+                  readOnly: true
+              required:
+              - id
+              - type
+    board_weburl:
+      title: board_weburl
+      type: object
+      properties:
+        live:
+          type: string
+          example: https://padlet.dev/api1/my-shiny-padlet-gqcilo8gv9qj5snz
+        qrCode:
+          type: string
+          example: https://cdn.padlet.dev/padlets/gqcilo8gv9qj5snz/qr_code.png
+        slideshow:
+          type: string
+          example: https://padlet.dev/api1/my-shiny-padlet-gqcilo8gv9qj5snz/slideshow
+        slideshowQrCode:
+          type: string
+          example: https://cdn.padlet.dev/padlets/gqcilo8gv9qj5snz/slideshow_qr_code.png
+    post_weburl:
+      title: post_weburl
+      type: object
+      properties:
+        live:
+          type: string
+          example: https://padlet.dev/api1/my-shiny-padlet-abcd1234v9qj5snz/wish/1234
+    post_write:
+      type: object
+      description: The contents of a padlet are written in posts
+      title: Post
+      x-internal: false
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          enum:
+          - post
+          example: post
+          default: post
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/post_attributes_write'
+          - $ref: '#/components/schemas/post_attributes_common'
+        relationships:
+          anyOf:
+          - $ref: '#/components/schemas/belongs_to_section'
+      x-examples:
+        Example 1:
+          type: post
+          attributes:
+            content:
+              subject: Hello
+              body: Hello is a way of greeting
+              attachment:
+                url: http://example.com
+                caption: Example website
+                previewImageUrl: http://example.com
+                embedCode: <img src=\"http://example.com\" width=\"768\" height=\"561\" />
+                poll: null
+            manualSortPosition:
+              previousPostId: abcd1234efgh5678x
+            color: red
+            status: approved
+            canvasProps:
+              left: 10
+              top: 20
+              width: 250
+            mapProps:
+              latitude: 0
+              longitude: 0
+              locationName: string
+            customFields:
+              field_abc123: High Priority
+              field_def456: Project Alpha
+          relationships:
+            section:
+              data:
+                id: abcd1234efgh5678x
+                type: section
+    post_attributes_write:
+      title: Post Attributes
+      type: object
+      x-internal: false
+      properties:
+        content:
+          $ref: '#/components/schemas/post_content_common'
+        manualSortPosition:
+          $ref: '#/components/schemas/manual_sort_position'
+        customFields:
+          type: object
+          description: Custom field values for this post. Keys should be the custom field IDs configured
+            for the board, and values should be the field values.
+          example:
+            field_abc123: High Priority
+            field_def456: Project Alpha
+      required:
+      - content
+    manual_sort_position:
+      type: object
+      x-examples: {}
+      x-internal: false
+      title: Manual Sort Position
+      properties:
+        previousPostId:
+          $ref: '#/components/schemas/id'
+    comment_write:
+      title: Comment Write
+      type: object
+      x-internal: false
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - comment
+              example: comment
+            attributes:
+              type: object
+              properties:
+                htmlContent:
+                  type: string
+                  description: Sanitized HTML content of the comment
+                  maxLength: 10000
+                attachment:
+                  type: object
+                  nullable: true
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                      description: Public URL to the attachment (e.g. image, file)
+                  description: Attachment object. Currently only supports a single url field
+      x-examples:
+        Example 1:
+          data:
+            type: comment
+            attributes:
+              htmlContent: <p>Great point, thanks for sharing!</p>
+              attachment:
+                url: https://cdn.padlet.dev/uploads/image.png
+    reaction_read:
+      title: Reaction
+      type: object
+      x-internal: false
+      properties:
+        id:
+          type: string
+          description: ID of reaction.
+        type:
+          type: string
+          enum:
+          - reaction
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/reaction_attributes_read'
+          - $ref: '#/components/schemas/base_attributes_read'
+        relationships:
+          allOf:
+          - $ref: '#/components/schemas/belongs_to_post'
+          - $ref: '#/components/schemas/belongs_to_board'
+    reaction_write:
+      title: Reaction
+      type: object
+      x-internal: false
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          enum:
+          - reaction
+          example: reaction
+          default: reaction
+        attributes:
+          $ref: '#/components/schemas/reaction_attributes_write'
+    reaction_attributes_read:
+      title: Reaction Attributes
+      type: object
+      x-internal: false
+      properties:
+        value:
+          type: integer
+          description: The reaction value
+        reactionType:
+          type: string
+          enum:
+          - like
+          - star
+          - grade
+          - vote
+          description: The type of reaction
+    reaction_attributes_write:
+      title: Reaction Attributes
+      type: object
+      x-internal: false
+      required:
+      - value
+      properties:
+        value:
+          type: integer
+          description: The reaction value. Valid values depend on reaction type.
+        reactionType:
+          type: string
+          enum:
+          - like
+          - star
+          - grade
+          - vote
+          description: The type of reaction. Defaults to board's configured type if not provided.
+    user_read:
+      title: User
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of user.
+        type:
+          type: string
+          enum:
+          - user
+        attributes:
+          title: User Attributes
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            name:
+              type: string
+            username:
+              type: string
+            displayName:
+              type: string
+            avatar:
+              type: string
+              format: uri
+            bio:
+              type: string
+    user_read_relationships:
+      type: object
+      properties:
+        relationships:
+          title: has many boards and belongs to many organizations
+          type: object
+          properties:
+            boards:
+              $ref: '#/components/schemas/has_many_boards'
+            organizations:
+              $ref: '#/components/schemas/belongs_to_many_organizations'
+    has_many_boards:
+      title: board
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/id'
+              type:
+                type: string
+                enum:
+                - board
+    belongs_to_many_organizations:
+      title: Organization
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/id'
+              type:
+                type: string
+                enum:
+                - organization
+    organization_read:
+      title: Organization
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        type:
+          type: string
+          enum:
+          - organization
+        attributes:
+          title: Organization Attributes
+          type: object
+          properties:
+            name:
+              type: string
+            organizationType:
+              type: string
+              enum:
+              - organization
+              - solo
+              - team
+              - school
+              - classroom
+            role:
+              type: string
+              enum:
+              - owner
+              - admin
+              - teacher
+              - member
+              - student
+              - contributor
+              - maker
+    organization_read_relationships:
+      title: Organization Relationships
+      type: object
+      properties:
+        relationships:
+          title: has many users
+          type: object
+          properties:
+            users:
+              $ref: '#/components/schemas/has_many_users'
+    has_many_users:
+      title: user
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/id'
+              type:
+                type: string
+                enum:
+                - user
+    user_read_relationships_just_boards:
+      title: User Relationships
+      type: object
+      properties:
+        relationships:
+          title: has many boards
+          type: object
+          properties:
+            boards:
+              $ref: '#/components/schemas/has_many_boards'
+    ai_recipe_board_write:
+      title: AI Recipe Board Write
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - ai_recipe_board
+        attributes:
+          title: AI Recipe Board Attributes
+          type: object
+          properties:
+            boardCreationInstructions:
+              type: string
+              maxLength: 2000
+              description: Natural language instructions for board creation
+            role:
+              type: string
+              description: User role or context that AI should adopt i.e. kindergarten teacher
+            workspaceId:
+              type: string
+              description: Workspace ID to create the board within a workspace
+          required:
+          - boardCreationInstructions
+          - role
+      required:
+      - type
+      - attributes
+    ai_recipe_board_status_url:
+      title: AI Recipe Board Status URL
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - aiRecipeBoardStatusUrl
+        attributes:
+          title: AI Recipe Board Status URL Attributes
+          type: object
+          properties:
+            statusUrl:
+              type: string
+              format: uri
+              description: URL to poll for AI recipe board creation status
+    ai_recipe_board_status:
+      title: AI Recipe Board Status
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - aiRecipeBoardStatus
+        attributes:
+          title: AI Recipe Board Status Attributes
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - in_progress
+              - success
+              - failed
+              description: Current status of the AI recipe board creation
+            board:
+              $ref: '#/components/schemas/board_read'
+              description: Optional. The created board object (only present when status is "success")
+          required:
+          - status
+  securitySchemes:
+    apiKey:
+      name: X-Api-Key
+      type: apiKey
+      in: header
+      description: ''
+tags:
+- name: Boards
+- name: Posts
+- name: Sections
+- name: Comments
+- name: Reactions
+- name: Users
+- name: Organizations
+- name: AI Recipe Boards

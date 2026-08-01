@@ -1,0 +1,46 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.padlet.dev/reference/error-handling
+format: json:api-errors
+envelope:
+  field: errors[]
+  attributes:
+  - status
+  - title
+  - detail
+  - code
+  example:
+    errors:
+    - status: '401'
+      title: Invalid token
+      detail: The token is invalid or has been revoked.
+      code: INVALID_TOKEN
+error_codes:
+- code: BAD_REQUEST
+  status: 400
+  description: The request contained invalid parameters.
+- code: PARAMETER_MISSING
+  status: 400
+  description: A required parameter is missing from the request.
+- code: PADLET_ARCHIVED
+  status: 400
+  description: The padlet you are trying to access is archived. Unarchive the padlet to access it with
+    the API.
+- code: INVALID_API_KEY
+  status: 401
+  description: The API token provided in the x-api-key header is invalid or has been revoked.
+- code: NOT_ADMIN
+  status: 401
+  description: You are not an admin of the padlet you are trying to access.
+- code: NOT_PAYING_USER
+  status: 403
+  description: You are not a paying user. Only paying users can access the API.
+- code: NOT_FOUND
+  status: 404
+  description: The requested resource was not found.
+- code: NOT_UNIQUE
+  status: 422
+  description: The resource already exists and duplicates are not allowed.
+- code: RATE_LIMIT_EXCEEDED
+  status: 429
+  description: You have exceeded the rate limit (250 requests/minute). Wait a minute and try again.

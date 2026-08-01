@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.padlet.dev/reference/introduction
+base_url: https://api.padlet.dev/v1
+media_type: application/json
+data_format:
+  standard: JSON:API
+  naming: camelCase
+  resource_shape: each resource has type, id, attributes, and relationships members
+authentication:
+  style: api-key
+  header: x-api-key
+  notes: Key generated at padlet.com/dashboard/settings/developers; requires a paying user with admin
+    access to the board.
+  artifact: authentication/padlet-authentication.yml
+pagination:
+  style: none-documented
+  notes: Collections are returned inline via compound documents; no cursor/offset pagination is documented.
+field_expansion:
+  style: include-parameter
+  param: include
+  notes: Compound documents via ?include=posts,sections,comments on boards; ?include=boards,organizations
+    on /me; ?include=users on organizations.
+versioning:
+  scheme: uri-path
+  current: v1
+  in: server base path (/v1)
+rate_limiting:
+  by: IP
+  limit: 250
+  window: 1 minute
+  error_code: RATE_LIMIT_EXCEEDED
+  status: 429
+  artifact: rate-limits/padlet-rate-limits.yml
+errors:
+  envelope: errors[] with status/title/detail/code
+  artifact: errors/padlet-problem-types.yml
+idempotency:
+  supported: false
+  notes: No idempotency-key header documented.
+ids:
+  prefixed: true
+  examples:
+    section: sec_
+    post: post_
+    comment: comment_
+    user: user_
+    organization: org_ or wksp_
+    board: 16-character hashid (no prefix)

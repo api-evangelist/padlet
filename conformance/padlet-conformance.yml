@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.padlet.dev/reference/introduction
+standards:
+- id: jsonapi-1.0
+  conforms: true
+  evidence: Docs state the API follows the JSON:API specification; resources use type/attributes/relationships
+    and compound documents via ?include.
+- id: oauth2
+  conforms: true
+  evidence: MCP server at mcp.padlet.com uses OAuth 2.0 authorization_code + PKCE (S256); REST API itself
+    uses api-key.
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: /.well-known/security.txt served with Contact.
+- id: rfc8414-oauth-authorization-server
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server metadata served for the MCP server.
+- id: rfc9727-api-catalog
+  conforms: true
+  evidence: /.well-known/api-catalog linkset served.
+- id: iso8601-datetimes
+  conforms: true
+  evidence: createdAt/updatedAt fields are ISO 8601 date-time strings.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a JSON:API errors[] envelope, not application/problem+json.

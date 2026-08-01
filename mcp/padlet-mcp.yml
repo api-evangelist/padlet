@@ -1,0 +1,36 @@
+generated: '2026-07-20'
+method: searched
+status: published
+source: https://padlet.com/.well-known/api-catalog
+server:
+  name: padlet_mcp_server
+  transport: http
+  url: https://mcp.padlet.com
+auth:
+  type: oauth2
+  flow: authorization_code
+  pkce: S256
+  authorization_endpoint: https://mcp.padlet.com/oauth/authorize
+  token_endpoint: https://mcp.padlet.com/oauth/token
+  registration_endpoint: https://mcp.padlet.com/oauth/register
+  scopes_supported:
+  - mcp
+  metadata: well-known/padlet-oauth-authorization-server.json
+discovery:
+- https://mcp.padlet.com/.well-known/oauth-protected-resource
+- https://mcp.padlet.com/.well-known/oauth-authorization-server
+note: Official hosted MCP server advertised in Padlet's /.well-known/api-catalog. Tool list is OAuth-gated
+  (scope "mcp") and not publicly enumerable; candidate tools below map to the documented REST operations.
+candidate_tools:
+- name: get_board
+  source_operation: openapi/padlet-openapi.yml#get-board-by-id
+- name: add_post
+  source_operation: openapi/padlet-openapi.yml#add-post
+- name: create_comment
+  source_operation: openapi/padlet-openapi.yml#create-comment
+- name: create_reaction
+  source_operation: openapi/padlet-openapi.yml#create-reaction
+- name: get_current_user
+  source_operation: openapi/padlet-openapi.yml#get-current-user
+- name: create_ai_recipe_board
+  source_operation: openapi/padlet-openapi.yml#create-ai-recipe-board

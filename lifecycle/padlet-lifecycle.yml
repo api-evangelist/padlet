@@ -1,0 +1,13 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.padlet.dev/reference/introduction
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://docs.padlet.dev/reference/introduction
+status_page: https://status.padlet.com
+deprecation:
+  policy_url: null
+  sunset_header: null
+  notes: No formal deprecation policy published.
+deprecated_operations: []

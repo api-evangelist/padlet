@@ -1,27 +1,222 @@
 aid: padlet
 name: Padlet
-description: Padlet is a company surfaced as a portfolio company of bloomberg-beta, y-combinator and added
-  to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: Padlet is a collaborative visual platform of boards and canvases ("padlets") used across
+  education and creative work to collect, organize, and share posts, images, links, and files. Its public
+  REST API (api.padlet.dev, JSON:API) lets paying users read boards with their sections, posts, comments,
+  and reactions, create posts, comments, and reactions, generate AI recipe boards, and read user and organization
+  data — authenticated with an x-api-key header. Padlet also runs an official OAuth-protected MCP server
+  at mcp.padlet.com for agent access.
 url: https://raw.githubusercontent.com/api-evangelist/padlet/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - bloomberg-beta
 - y-combinator
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
-- Company
-apis: []
+- Collaboration
+- Education
+- Visual Collaboration
+- Content
+- Boards
+- Productivity
+- JSON:API
+- MCP
+- EdTech
+apis:
+- aid: padlet:padlet-ai-recipe-boards-api
+  name: Padlet AI Recipe Boards API
+  description: The AI Recipe Boards API from Padlet — 2 operation(s) for ai recipe boards.
+  humanURL: https://docs.padlet.dev/reference/introduction
+  baseURL: https://api.padlet.dev/v1
+  tags:
+  - AI Recipe Boards
+  properties:
+  - type: OpenAPI
+    url: openapi/padlet-ai-recipe-boards-api-openapi.yml
+  - type: Documentation
+    url: https://docs.padlet.dev/reference/introduction
+  - type: APIReference
+    url: https://docs.padlet.dev/reference/introduction
+  - type: GettingStarted
+    url: https://docs.padlet.dev/reference/authentication
+- aid: padlet:padlet-boards-api
+  name: Padlet Boards API
+  description: The Boards API from Padlet — 1 operation(s) for boards.
+  humanURL: https://docs.padlet.dev/reference/introduction
+  baseURL: https://api.padlet.dev/v1
+  tags:
+  - Boards
+  properties:
+  - type: OpenAPI
+    url: openapi/padlet-boards-api-openapi.yml
+  - type: Documentation
+    url: https://docs.padlet.dev/reference/introduction
+  - type: APIReference
+    url: https://docs.padlet.dev/reference/introduction
+  - type: GettingStarted
+    url: https://docs.padlet.dev/reference/authentication
+- aid: padlet:padlet-comments-api
+  name: Padlet Comments API
+  description: The Comments API from Padlet — 1 operation(s) for comments.
+  humanURL: https://docs.padlet.dev/reference/introduction
+  baseURL: https://api.padlet.dev/v1
+  tags:
+  - Comments
+  properties:
+  - type: OpenAPI
+    url: openapi/padlet-comments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.padlet.dev/reference/introduction
+  - type: APIReference
+    url: https://docs.padlet.dev/reference/introduction
+  - type: GettingStarted
+    url: https://docs.padlet.dev/reference/authentication
+- aid: padlet:padlet-organizations-api
+  name: Padlet Organizations API
+  description: The Organizations API from Padlet — 2 operation(s) for organizations.
+  humanURL: https://docs.padlet.dev/reference/introduction
+  baseURL: https://api.padlet.dev/v1
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/padlet-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.padlet.dev/reference/introduction
+  - type: APIReference
+    url: https://docs.padlet.dev/reference/introduction
+  - type: GettingStarted
+    url: https://docs.padlet.dev/reference/authentication
+- aid: padlet:padlet-posts-api
+  name: Padlet Posts API
+  description: The Posts API from Padlet — 2 operation(s) for posts.
+  humanURL: https://docs.padlet.dev/reference/introduction
+  baseURL: https://api.padlet.dev/v1
+  tags:
+  - Posts
+  properties:
+  - type: OpenAPI
+    url: openapi/padlet-posts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.padlet.dev/reference/introduction
+  - type: APIReference
+    url: https://docs.padlet.dev/reference/introduction
+  - type: GettingStarted
+    url: https://docs.padlet.dev/reference/authentication
+- aid: padlet:padlet-reactions-api
+  name: Padlet Reactions API
+  description: The Reactions API from Padlet — 1 operation(s) for reactions.
+  humanURL: https://docs.padlet.dev/reference/introduction
+  baseURL: https://api.padlet.dev/v1
+  tags:
+  - Reactions
+  properties:
+  - type: OpenAPI
+    url: openapi/padlet-reactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.padlet.dev/reference/introduction
+  - type: APIReference
+    url: https://docs.padlet.dev/reference/introduction
+  - type: GettingStarted
+    url: https://docs.padlet.dev/reference/authentication
+- aid: padlet:padlet-users-api
+  name: Padlet Users API
+  description: The Users API from Padlet — 1 operation(s) for users.
+  humanURL: https://docs.padlet.dev/reference/introduction
+  baseURL: https://api.padlet.dev/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/padlet-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.padlet.dev/reference/introduction
+  - type: APIReference
+    url: https://docs.padlet.dev/reference/introduction
+  - type: GettingStarted
+    url: https://docs.padlet.dev/reference/authentication
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: VulnerabilityDisclosure
+  url: security/padlet-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/padlet-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/padlet-agentic-access.yml
+- type: Authentication
+  url: authentication/padlet-authentication.yml
 - type: Website
   url: https://padlet.com/
+- type: DeveloperPortal
+  url: https://docs.padlet.dev/
+- type: Documentation
+  url: https://docs.padlet.dev/reference/introduction
+- type: APIReference
+  url: https://docs.padlet.dev/reference/introduction
+- type: GettingStarted
+  url: https://docs.padlet.dev/reference/authentication
+- type: Support
+  url: https://padlet.help/
+- type: Pricing
+  url: https://padlet.com/pricing
+- type: SignUp
+  url: https://padlet.com/auth/signup
+- type: TermsOfService
+  url: https://padlet.com/tos
+- type: PrivacyPolicy
+  url: https://legal.padlet.com/privacy
+- type: StatusPage
+  url: https://status.padlet.com
+- type: MCPServer
+  url: mcp/padlet-mcp.yml
+- type: LLMsTxt
+  url: llms/padlet-llms.txt
+- type: WellKnown
+  url: well-known/padlet-well-known.yml
+- type: SecurityTxt
+  url: well-known/padlet-security.txt
+- type: Security
+  url: https://padlet.com/.well-known/security.txt
+- type: ErrorCatalog
+  url: errors/padlet-problem-types.yml
+- type: Conventions
+  url: conventions/padlet-conventions.yml
+- type: RateLimits
+  url: rate-limits/padlet-rate-limits.yml
+- type: DataModel
+  url: data-model/padlet-data-model.yml
+- type: Conformance
+  url: conformance/padlet-conformance.yml
+- type: Lifecycle
+  url: lifecycle/padlet-lifecycle.yml
+- type: Overlay
+  url: overlays/padlet-openapi-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
+image: https://elvis.padletcdn.com/1/atat/e_1/appBY8jxCUCf4JUUZ/tblANzywOAIDDHQsQ/recwXBCnX3ozCHYBU/fldKQAixAlmwWEnhk/0
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1

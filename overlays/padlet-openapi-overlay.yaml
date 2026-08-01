@@ -1,0 +1,26 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Padlet API
+  version: 1.0.0
+# generated: '2026-07-20'
+# method: generated
+# source: openapi/padlet-openapi.yml
+extends: openapi/padlet-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 4
+      x-api-standard: json:api
+      x-authentication: api-key (x-api-key header)
+      x-rate-limit: 250 requests/minute per IP
+      x-mcp-server: https://mcp.padlet.com
+      x-docs: https://docs.padlet.dev/reference/introduction
+  - target: $.info
+    update:
+      x-artifacts:
+        authentication: authentication/padlet-authentication.yml
+        conventions: conventions/padlet-conventions.yml
+        errors: errors/padlet-problem-types.yml
+        rate-limits: rate-limits/padlet-rate-limits.yml
+        data-model: data-model/padlet-data-model.yml
+        lifecycle: lifecycle/padlet-lifecycle.yml
