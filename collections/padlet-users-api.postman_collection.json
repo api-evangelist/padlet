@@ -1,0 +1,115 @@
+{
+  "item": [
+    {
+      "id": "7717caa0-a843-4e83-9c21-ac21ff561a7d",
+      "name": "Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52182f48-da45-472b-aed4-5c5dd7b0af59",
+          "name": "Get current user",
+          "request": {
+            "name": "Get current user",
+            "description": {
+              "content": "Get information about the currently authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "me"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6b8df6f7-ce5d-45aa-a41c-bf15e50e4316",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.padlet.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "900e5a32-6bcc-4020-b78f-35c6c55910bd",
+    "name": "Padlet AI Recipe Boards Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Padlet's public REST API (JSON:API) to read boards and their posts, sections, and comments, create posts, comments, and reactions, generate AI recipe boards, and read user and organization data. Authenticated with an x-api-key header tied to a paying Padlet user with admin access to the board.\n\nContact Support:\n Name: Padlet Engineer\n Email: engine@wallwisher.com",
+      "type": "text/plain"
+    }
+  }
+}

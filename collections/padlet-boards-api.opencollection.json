@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Padlet AI Recipe Boards API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Boards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get board by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.padlet.dev/v1/boards/:board_id",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get board information by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

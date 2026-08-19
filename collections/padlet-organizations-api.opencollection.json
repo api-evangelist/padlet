@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Padlet AI Recipe Boards Organizations API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get organization by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.padlet.dev/v1/organizations/:org_id",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Set to 'users' to include organization members in response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get organization information. Requires admin access."
+        },
+        {
+          "info": {
+            "name": "Get user's boards in organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.padlet.dev/v1/organizations/:org_id/users/:user_id",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Set to 'boards' to include user's boards in response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a user's boards within an organization. Requires admin access."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Padlet AI Recipe Boards Comments API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Comments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create comment on post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.padlet.dev/v1/posts/:post_hashid/comments",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a comment on a post"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Padlet AI Recipe Boards Reactions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a reaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.padlet.dev/v1/posts/:post_id/reactions",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a reaction on a post"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

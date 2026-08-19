@@ -34,3 +34,10 @@ candidate_tools:
   source_operation: openapi/padlet-openapi.yml#get-current-user
 - name: create_ai_recipe_board
   source_operation: openapi/padlet-openapi.yml#create-ai-recipe-board
+deployment:
+  mode: remote
+  endpoint: https://mcp.padlet.com
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census

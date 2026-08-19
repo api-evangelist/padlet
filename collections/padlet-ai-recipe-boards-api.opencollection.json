@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Padlet AI Recipe Boards API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AI Recipe Boards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an AI recipe board",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.padlet.dev/v1/ai-recipe-boards",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new AI-generated board using natural language instructions"
+        },
+        {
+          "info": {
+            "name": "Get AI recipe board status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.padlet.dev/v1/ai-recipe-boards/status/:status_key",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the current status of an AI recipe board creation request"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

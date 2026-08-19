@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Padlet AI Recipe Boards Posts API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Posts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.padlet.dev/v1/boards/:board_id/posts",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a post in a board"
+        },
+        {
+          "info": {
+            "name": "Your GET endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.padlet.dev/v1/posts/:post_id/attachmentData",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get post attachment information by post ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
