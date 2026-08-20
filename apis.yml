@@ -94,6 +94,8 @@ apis:
   humanURL: https://docs.padlet.dev/reference/introduction
   baseURL: https://api.padlet.dev/v1
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -142,6 +144,8 @@ apis:
   humanURL: https://docs.padlet.dev/reference/introduction
   baseURL: https://api.padlet.dev/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
