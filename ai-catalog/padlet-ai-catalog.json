@@ -1,0 +1,74 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Padlet",
+    "identifier": "did:web:padlet.com"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:padlet.com:server:padlet-mcp",
+      "displayName": "Padlet MCP Server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://padlet.com/.well-known/mcp/server-card.json",
+      "representativeQueries": [
+        "create a padlet board for my class",
+        "add posts to an existing padlet",
+        "find the padlet where my students submitted their field trip photos",
+        "invite a collaborator to one of my padlets"
+      ]
+    },
+    {
+      "identifier": "urn:air:padlet.com:skills:index",
+      "displayName": "Padlet Agent Skills",
+      "type": "application/agent-skills+json",
+      "url": "https://padlet.com/.well-known/agent-skills/index.json",
+      "representativeQueries": [
+        "what skills does Padlet publish for agents",
+        "walk me through creating a padlet step by step",
+        "how do I add posts to a padlet with attachments"
+      ]
+    },
+    {
+      "identifier": "urn:air:padlet.com:api:catalog",
+      "displayName": "Padlet API Catalog",
+      "type": "application/linkset+json",
+      "url": "https://padlet.com/.well-known/api-catalog",
+      "representativeQueries": [
+        "where is the Padlet REST API documented",
+        "what is the base URL for the Padlet public API"
+      ]
+    },
+    {
+      "identifier": "urn:air:padlet.com:auth:registration",
+      "displayName": "Padlet Agent Registration",
+      "type": "text/markdown",
+      "url": "https://padlet.com/auth.md",
+      "representativeQueries": [
+        "how do I register an OAuth client with Padlet",
+        "how does an agent get an access token for Padlet",
+        "how do I refresh an expired Padlet token"
+      ]
+    },
+    {
+      "identifier": "urn:air:padlet.com:api:openapi",
+      "displayName": "Padlet REST API",
+      "type": "application/vnd.oai.openapi+json",
+      "url": "https://padlet.com/openapi.json",
+      "representativeQueries": [
+        "what endpoints does the Padlet REST API expose",
+        "how do I read a padlet board over HTTP",
+        "how do I create a post through the Padlet API"
+      ]
+    },
+    {
+      "identifier": "urn:air:padlet.com:docs:llms",
+      "displayName": "Padlet for LLMs",
+      "type": "text/markdown",
+      "url": "https://padlet.com/llms.txt",
+      "representativeQueries": [
+        "what is Padlet and when should an agent use it",
+        "which Padlet interface should I use for this task"
+      ]
+    }
+  ]
+}
