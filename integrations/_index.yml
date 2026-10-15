@@ -58,5 +58,5 @@
     app_slug: padlet-1
     beta: false
     builder: unknown (not in the directory record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
