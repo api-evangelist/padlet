@@ -2,6 +2,7 @@ generated: '2026-10-14'
 method: searched
 checked:
 - clever/integrations/clever-integration-edges.yml
+- google-workspace/integrations/google-workspace-integration-edges.yml
 - https://registry.modelcontextprotocol.io/v0/servers
 - https://zapier.com/api/v4/apps/
 source:
@@ -82,3 +83,20 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Google Workspace (own)
+  partner: google-workspace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://workspace.google.com/marketplace/app/padlet/892091831180
+  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
+  apps:
+  - Padlet
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Google Workspace app
