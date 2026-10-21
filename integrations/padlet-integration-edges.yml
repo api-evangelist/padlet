@@ -5,6 +5,11 @@ checked:
 - google-workspace/integrations/google-workspace-integration-edges.yml
 - https://registry.modelcontextprotocol.io/v0/servers
 - https://zapier.com/api/v4/apps/
+- https://500.co/api/startups
+- https://500.co/companies
+- https://www.antler.co/portfolio
+- https://www.techstars.com/portfolio
+- https://www.ycombinator.com/companies
 source:
 - clever/integrations/clever-integration-edges.yml
 edges:
@@ -27,37 +32,6 @@ edges:
   features:
   - secure_sync
   - instant_login
-- partner_name: MCP Registry
-  partner: mcp
-  partner_match: register
-  type: register
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.padlet
-  contract_reference:
-    register: registry.modelcontextprotocol.io
-    spec_file: null
-    role: mcp-server-listing
-    registered_name: com.padlet/padlet
-    register_id: com.padlet/padlet
-    detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
-  mcp_registry:
-    servers:
-    - com.padlet/padlet
-    hosted_remote: 1
-    local_package: 0
-    transports:
-      streamable-http: 1
-    auth_declared: 0
-    catalog_declared: true
-    namespace_domains:
-    - padlet.com
-  matched_by:
-  - namespace-domain
-  detected_by: sweep-agent-tools.py
-  first_seen: '2026-10-14'
 - partner_name: Zapier
   partner: zapier
   partner_match: aggregator
@@ -100,3 +74,63 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Google Workspace app
+- partner_name: MCP Registry
+  partner: mcp
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.padlet
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: com.padlet/padlet
+    register_id: com.padlet/padlet
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-19'
+  mcp_registry:
+    servers:
+    - com.padlet/padlet
+    hosted_remote: 1
+    local_package: 0
+    transports:
+      streamable-http: 1
+    auth_declared: 0
+    catalog_declared: true
+    namespace_domains:
+    - padlet.com
+  matched_by:
+  - namespace-domain
+  detected_by: sweep-agent-tools.py
+  first_seen: '2026-10-14'
+- partner_name: Y Combinator
+  partner: y-combinator
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.ycombinator.com/companies/padlet
+  category: accelerator portfolio participation
+  contract_reference:
+    register: Y Combinator company directory (ycombinator.com/companies/<slug>)
+    standard: null
+    spec_file: null
+    role: accelerator-portfolio-company
+    registered_name: Padlet
+    register_id: https://www.ycombinator.com/companies/padlet
+    register_country: US
+    register_website: https://padlet.com
+    matched_domain: padlet.com
+    matched_by: domain
+    signal_note: 'participation only: the accelerator''s own portfolio register lists the company (cohort / investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-accelerator-portfolios.py
+    detected: '2026-10-21'
+    batch: Winter 2013
+    year: '2012'
+    status: Active
+  detected_by: sweep-accelerator-portfolios.py
+  first_seen: '2026-10-21'
